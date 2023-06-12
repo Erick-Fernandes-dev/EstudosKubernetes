@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      volumeMounts:
+        - mountPath: /volume-dentro-do-container
+          name: pod-volume
+    - name: tomcat-container
+      image: tomcat:9.0.75-jdk8-corretto-al2
+      volumeMounts:
+        - mountPath: /volume-dentro-do-container # caminho do volume dentro do container
+          name: pod-volume # nome do volume
+  
+  volumes: # volumes
+    - name: pod-volume # nome do volume
+      hostPath: # tipo de volume
+        path: /home/volumes-po # caminho do volume
+        type: Directory # tipo de volume
+        # Caso o direotrio não exista, ele será criado

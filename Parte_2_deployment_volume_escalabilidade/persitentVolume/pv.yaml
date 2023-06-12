@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-1
+spec:
+  capacity: # capacidade do volume
+    storage: 10Gi # 10 Gibibyte | storage é o nome do atributo
+  accessModes: # modos de acesso
+    - ReadWriteOnce # modo de acesso
+  gcePersistentDisk: # tipo de volume
+    pdName: pv-1 # nome do volume
+  storageClassName: standard # classe de armazenamento

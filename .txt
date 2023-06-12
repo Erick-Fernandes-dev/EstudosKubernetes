@@ -1,0 +1,14 @@
+sudo bash -c 'cat << EOF > /etc/profile.d/maven.sh
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export M2_HOME=/opt/maven
+export MAVEN_HOME=/opt/maven
+export PATH=/opt/maven/bin:$PATH
+EOF'
+
+configMap-ConfigMap, e onde ele vai ser responsável por armazenar configurações que
+nós precisamos utilizar dentro de determinados pods, determinados recursos.
+
+Volemes:
+
+- Volumes possuem ciclos de vida independentes dos containers.
+Porem, sao dependentes dos pods

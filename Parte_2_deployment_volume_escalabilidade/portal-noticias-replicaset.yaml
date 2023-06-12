@@ -1,0 +1,24 @@
+apiVersion: apps/v1 # grupo apps/v1
+kind: ReplicaSet # tipo ReplicaSet
+metadata:
+  name: portal-noticias-replicaset # nome do ReplicaSet
+spec:
+  #definir um template para os pods que serão criados / todas as informações do pod
+  template:
+    metadata:
+      name: portal-noticias # nome do pod
+      labels:
+        app: portal-noticias # label do pod
+    spec:
+      containers:
+        - name: portal-noticias-container # nome do container
+          image: aluracursos/portal-noticias:1 # imagem do container
+          ports:
+            - containerPort: 80 # porta do container
+          envFrom:
+            - configMapRef:
+                name: portal-configmap # nome do configmap
+  replicas: 3 # quantidade de pods que serão criados
+  selector:
+    matchLabels:
+      app: portal-noticias # label do pod
