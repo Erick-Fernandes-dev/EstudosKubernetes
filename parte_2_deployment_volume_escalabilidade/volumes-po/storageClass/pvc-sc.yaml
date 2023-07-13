@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim # Tipo de volume
+metadata:
+  name: pvc-2
+spec:
+  accessModes:
+    - ReadWriteOnce # Leitura e escrita por apenas um pod
+  resources: # Recursos do volume
+    requests:
+      storage: 1Gi # Tamanho do volume
+
+  storageClassName: slow # Classe de armazenamento

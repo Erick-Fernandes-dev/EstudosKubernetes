@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1 # API version
+kind: StorageClass # Tipo de volume
+metadata:
+  name: slow # Nome do volume
+provisioner: kubernetes.io/gce-pd # Provedor do volume
+parameters: # Parâmetros do volume
+  type: pd-standard # Tipo do volume
+  fsType: ext4 # Sistema de arquivos

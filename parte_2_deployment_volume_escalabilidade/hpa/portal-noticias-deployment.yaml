@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-noticias-deployment
+spec:
+  template:
+    metadata:
+      name: portal-noticias
+      labels:
+        app: portal-noticias
+    spec:
+      containers:
+        - name: portal-noticias-container
+          image: aluracursos/portal-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: portal-configmap
+          livenessProbe: # Probe de liveness
+            httpGet: # Tipo de probe
+              path: / # Path do health check
+              port: 80 # Porta do container
+            periodSeconds: 10 # Intervalo entre as requisições
+            failureThreadhold: 3 # Número de falhas consecutivas
+            initialDelaySeconds: 20 # Tempo para iniciar a probe
+
+          readinessProbe: # Probe de readiness
+            httpGet: # Tipo de probe
+              path: / # Path do health check
+              port: 80 # Porta do container
+            periodSeconds: 10 # Intervalo entre as requisições
+            failureThreadhold: 5 # Número de falhas consecutivas
+            initialDelaySeconds: 3 # Tempo para iniciar a probe
+          resources: # Recursos do container
+            requests: # Requisições mínimas
+              cpu: 10m  # 10 milicores
+
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portal-noticias
